@@ -20,9 +20,10 @@ AI를 활용하여 어색한 일본어 문장을 격식 있는 비즈니스 경�
    ```env
    GEMINI_API_KEY=your_api_key_here
 2. **Docker 실행**: 
+    ```env
     docker-compose up --build -d
 
-📖 API 문서
+## 📖 API 문서
 [POST] /api/correct
 비즈니스 일본어 문장을 교정합니다.
 
@@ -34,6 +35,7 @@ Request Body
 
 Response (JSON)
 
+```env
 JSON
 {
   "corrected_text": "...",
