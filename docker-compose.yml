@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  api-server:
+    build: .
+    container_name: jp-business-api
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    # 코드 수정 시 컨테이너 재시작 없이 반영하고 싶다면 아래 주석을 해제하세요 (개발용)
+    # volumes:
+    #   - .:/usr/src/app
+    #   - /usr/src/app/node_modules
+    restart: always
