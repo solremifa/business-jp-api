@@ -3,13 +3,31 @@ version: '3.8'
 services:
   api-server:
     build: .
-    container_name: jp-business-api
     ports:
       - "3000:3000"
     env_file:
       - .env
-    # 코드 수정 시 컨테이너 재시작 없이 반영하고 싶다면 아래 주석을 해제하세요 (개발용)
-    # volumes:
-    #   - .:/usr/src/app
-    #   - /usr/src/app/node_modules
+    depends_on:
+      - db  # DB가 먼저 실행된 후 앱이 실행되도록 설정
+    networks:
+      - app-network
+
+  db:
+    image: mysql:8.0
     restart: always
+    environment:
+      MYSQL_DATABASE: business_jp
+      MYSQL_ROOT_PASSWORD: root_password # 실제 서비스 시 .env로 관리 필수
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql # 데이터가 삭제되지 않게 볼륨 설정
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  db_data:
